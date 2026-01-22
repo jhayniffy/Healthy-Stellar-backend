@@ -8,11 +8,11 @@ export class DatabaseConfig implements TypeOrmOptionsFactory {
 
   createTypeOrmOptions(): TypeOrmModuleOptions {
     return {
-      type: 'postgres',
+      type: 'mysql', // changed from 'postgres'
       host: this.configService.get<string>('DB_HOST', 'localhost'),
-      port: this.configService.get<number>('DB_PORT', 5432),
-      username: this.configService.get<string>('DB_USERNAME', 'postgres'),
-      password: this.configService.get<string>('DB_PASSWORD', 'postgres'),
+      port: this.configService.get<number>('DB_PORT', 3306), // default MySQL port
+      username: this.configService.get<string>('DB_USERNAME', 'root'),
+      password: this.configService.get<string>('DB_PASSWORD', ''),
       database: this.configService.get<string>('DB_NAME', 'healthy_stellar'),
       entities: [__dirname + '/../**/*.entity{.ts,.js}'],
       synchronize: this.configService.get<string>('NODE_ENV') !== 'production',
