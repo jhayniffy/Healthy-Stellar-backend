@@ -13,7 +13,7 @@ export class DatabaseConfig implements TypeOrmOptionsFactory {
     const sslEnabled = this.configService.get<string>('DB_SSL_ENABLED', 'true') === 'true';
 
     return {
-      type: 'postgres',
+      type: 'mysql', // changed from 'postgres'
       host: this.configService.get<string>('DB_HOST', 'localhost'),
       port: this.configService.get<number>('DB_PORT', 5432),
       username: this.configService.get<string>('DB_USERNAME'),
