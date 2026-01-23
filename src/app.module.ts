@@ -4,6 +4,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { AuthModule } from './auth/auth.module';
 import { BillingModule } from './billing/billing.module';
 import { MedicalRecordsModule } from './medical-records/medical-records.module';
+import { CommonModule } from './common/common.module';
 import { DatabaseConfig } from './config/database.config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -16,7 +17,17 @@ import { HealthController } from './health.controller';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: ['.env.local', '.env'],
+      cache: true,
     }),
+    TypeOrmModule.forRootAsync({
+      useClass: DatabaseConfig,
+    }),
+    CommonModule,
+    BillingModule,
+    MedicalRecordsModule,
+  ],
+  controllers: [AppController],
     // Rate limiting and throttling for security
     ThrottlerModule.forRoot([
       {
